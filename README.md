@@ -1,109 +1,136 @@
-# Sample APIs 
+# **Student Records API**
 
-This project is a simple CRUD (Create, Read, Update, Delete) API for managing student records. It is built using Go and SQLite.
+A simple CRUD (Create, Read, Update, Delete) API for managing student records, built using **Go** and **SQLite**.
 
-## Project Structure
+---
 
-## Configuration
+## **Project Structure**
 
-The configuration file is located at `config/local.yml`. It contains the following settings:
+```
+.
+├── config
+│   └── local.yml        # Configuration file
+├── cmd
+│   └── api
+│       └── main.go      # Main API server entry point
+├── db
+│   └── development.db   # SQLite database file
+└── ...
+```
 
-```yml
-env: "dev"
-db_path: "db/development.db"
+---
+
+## **Configuration**
+
+The configuration file is located at `config/local.yml` and contains the following settings:
+
+```yaml
+env: "dev"                       # Environment (dev, test, prod)
+db_path: "db/development.db"     # Path to SQLite database
 http_server:
-  address: "localhost:8080"
+  address: "localhost:8080"      # HTTP server address
 ```
 
-## Running the Project
+---
 
-Install dependencies:
+## **Getting Started**
 
-```
+### **Install Dependencies**
+Run the following command to install all required Go modules:
+
+```bash
 go mod tidy
-
 ```
 
-Run the API server:
+### **Run the API Server**
+To start the API server:
 
-```
-go run cmd/api/main.go 
-
-```
-
-
-
-
-## Sample Student Record
-
-API Endpoints
-Create a Student
--URL: /api/students
--Method: POST
--Request Body:
-
-```json
-{
-  "name": "John Doe",
-  "email": "john.doe@example.com",
-  "age": 20
-}
+```bash
+go run cmd/api/main.go
 ```
 
-Response Body:
+---
 
-```json
-{
-  "success": 200,
-  "id": 1
-}
-```
+## **API Endpoints**
 
-Get a Student by ID
--URL: /api/students/{id}
--Method: GET
--Response:
+### **1. Create a Student**
+- **URL**: `/api/students`  
+- **Method**: `POST`  
+- **Request Body**:
 
- ```json
-{
-  "id": 1,
-  "name": "John Doe",
-  "email": "john.doe@example.com",
-  "age": 20
-}
-```
+  ```json
+  {
+    "name": "John Doe",
+    "email": "john.doe@example.com",
+    "age": 20
+  }
+  ```
 
+- **Response**:
 
-Get All Students
-URL: /api/students
-Method: GET
-Response:
+  ```json
+  {
+    "success": 200,
+    "id": 1
+  }
+  ```
 
-```json
-[
+---
+
+### **2. Get a Student by ID**
+- **URL**: `/api/students/{id}`  
+- **Method**: `GET`  
+- **Response**:
+
+  ```json
   {
     "id": 1,
     "name": "John Doe",
     "email": "john.doe@example.com",
     "age": 20
-  },
-  {
-    "id": 2,
-    "name": "Jane Doe",
-    "email": "jane.doe@example.com",
-    "age": 22
   }
-]
-```
+  ```
 
+---
 
-##Dependencies
+### **3. Get All Students**
+- **URL**: `/api/students`  
+- **Method**: `GET`  
+- **Response**:
 
-github.com/ilyakaznacheev/cleanenv - For loading configuration from a YAML file.
+  ```json
+  [
+    {
+      "id": 1,
+      "name": "John Doe",
+      "email": "john.doe@example.com",
+      "age": 20
+    },
+    {
+      "id": 2,
+      "name": "Jane Doe",
+      "email": "jane.doe@example.com",
+      "age": 22
+    }
+  ]
+  ```
 
-modernc.org/sqlite - SQLite driver for Go.
+---
 
-github.com/go-playground/validator/v10 - For validating request payloads.
+## **Dependencies**
 
-##License
-This project is licensed under the MIT License.
+- [**github.com/ilyakaznacheev/cleanenv**](https://github.com/ilyakaznacheev/cleanenv)  
+  Used for loading configuration from YAML files.
+
+- [**modernc.org/sqlite**](https://modernc.org/sqlite)  
+  SQLite driver for Go.
+
+- [**github.com/go-playground/validator/v10**](https://github.com/go-playground/validator)  
+  Used for validating request payloads.
+
+---
+
+## **License**
+
+This project is licensed under the **MIT License**.  
+See the [LICENSE](LICENSE) file for details.
