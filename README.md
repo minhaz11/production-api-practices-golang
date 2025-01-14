@@ -1,4 +1,4 @@
-# CRUD API
+# Sample APIs 
 
 This project is a simple CRUD (Create, Read, Update, Delete) API for managing student records. It is built using Go and SQLite.
 
@@ -32,7 +32,7 @@ go run cmd/api/main.go
 ```
 
 
-```
+
 
 ## Sample Student Record
 
@@ -50,7 +50,7 @@ Create a Student
 }
 ```
 
--Response Body:
+Response Body:
 
 ```json
 {
@@ -58,13 +58,13 @@ Create a Student
   "id": 1
 }
 ```
-```
+
 Get a Student by ID
 -URL: /api/students/{id}
 -Method: GET
 -Response:
 
- json
+ ```json
 {
   "id": 1,
   "name": "John Doe",
@@ -73,13 +73,13 @@ Get a Student by ID
 }
 ```
 
-```
+
 Get All Students
 URL: /api/students
 Method: GET
 Response:
 
-json
+```json
 [
   {
     "id": 1,
@@ -97,13 +97,13 @@ json
 ```
 
 
-#Dependencies
+##Dependencies
 
--github.com/ilyakaznacheev/cleanenv - For loading configuration from a YAML file.
+github.com/ilyakaznacheev/cleanenv - For loading configuration from a YAML file.
 
--modernc.org/sqlite - SQLite driver for Go.
+modernc.org/sqlite - SQLite driver for Go.
 
--github.com/go-playground/validator/v10 - For validating request payloads.
+github.com/go-playground/validator/v10 - For validating request payloads.
 
-#License
+##License
 This project is licensed under the MIT License.
