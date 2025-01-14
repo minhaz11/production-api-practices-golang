@@ -2,8 +2,10 @@ package sqlite
 
 import (
 	"database/sql"
+	"fmt"
 
 	"github.com/minhaz11/crud/internal/config"
+	"github.com/minhaz11/crud/internal/types"
 	_ "modernc.org/sqlite"
 )
 
@@ -58,4 +60,75 @@ func (s *Sqlite) CreateStudent(name string, email string, age int) (int64, error
 	}
 
 	return id, nil
+}
+
+func (s *Sqlite) GetStudentById(id int64) (types.Student, error) {
+	db := s.DB
+
+	stmt, err:= db.Prepare(`SELECT * FROM students WHERE id = ? LIMIT 1`)
+
+	if err != nil {
+		return types.Student{}, err
+	}
+
+	defer stmt.Close()
+
+	var student types.Student
+
+	err = stmt.QueryRow(id).Scan(
+		&student.Id,
+		&student.Name,
+		&student.Email,
+		&student.Age,
+	)
+
+	if err != nil {
+		if err == sql.ErrNoRows{
+			return types.Student{}, fmt.Errorf("student not found with this id %s", fmt.Sprint(id))
+		}
+		return types.Student{}, fmt.Errorf("query error: %v", id)
+	}
+
+	return student, nil
+}
+
+func (s *Sqlite) GetStudents() ([]types.Student, error) {
+
+	stmt, err := s.DB.Prepare(`SELECT * FROM students`)
+
+	if err != nil {
+		return nil, err
+	}
+
+	defer stmt.Close()
+
+	rows, err := stmt.Query()
+
+	if err != nil {
+		return nil, err
+	}
+
+	defer rows.Close()
+
+	var students []types.Student
+
+	for rows.Next() {
+		var student types.Student
+
+		err := rows.Scan(
+			&student.Id,
+			&student.Name,
+			&student.Email,
+			&student.Age,
+		)
+
+		if err != nil {
+			return nil, err
+		}
+
+		students = append(students, student)
+	}
+
+	return students, nil
+	
 }
